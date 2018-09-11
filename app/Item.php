@@ -6,5 +6,15 @@
     
     class Item extends Model
     {
-        //
+        protected $fillable = ['code', 'name', 'url', 'image_url'];
+        
+        public function users()
+        {
+            return $this->belongsToMany(User::class)->withPivot('type')->withTimestamps();
+        }
+        
+        public function want_users()
+        {
+            $this->users()->where('type', 'want');
+        }
     }
